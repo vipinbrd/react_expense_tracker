@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export function SignUp() {
   const [error, setError] = useState("");
@@ -82,7 +82,7 @@ export function SignUp() {
           </button>
         </form>
         <button className="mt-4 text-blue-500 hover:underline w-full text-center">
-          Have an account? Login
+          <Link to="/login">Have an account? Login</Link>
         </button>
       </div>
     </div>

@@ -1,11 +1,17 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export function Login() {
+    const navigate=useNavigate();
+    function loginHandler(e){
+        e.preventDefault();
+ navigate("/home")
+
+    }
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-2xl shadow-md w-full max-w-md">
         <h1 className="text-2xl font-bold mb-6 text-center text-gray-800">Login</h1>
-        <form className="flex flex-col gap-4">
+        <form onSubmit={loginHandler}className="flex flex-col gap-4">
           <input
             type="email"
             placeholder="Email"
