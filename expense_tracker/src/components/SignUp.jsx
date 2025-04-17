@@ -1,10 +1,12 @@
 import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function SignUp() {
   const [error, setError] = useState("");
   const email = useRef();
   const password = useRef();
   const confirmPassword = useRef();
+  const navigate=useNavigate();
 
   function signUpHandler(e) {
     e.preventDefault();
@@ -13,8 +15,15 @@ export function SignUp() {
     const confirmPasswordd = confirmPassword.current.value;
 
     const isValid = validator(emaill, passwordd, confirmPasswordd);
-    if (!isValid) return;
-
+    if (!isValid){
+        setTimeout(()=>{
+            setError("")
+        },1500)
+        return;
+    }
+        
+       
+    navigate('/login')
   
     console.log("Sign Up Successful!");
   }
