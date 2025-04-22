@@ -1,7 +1,9 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { AuthStore } from "./store/AuthContext";
 
 export function Login() {
+  const {userInfo,setUserInfo}=useContext(AuthStore)
   const email = useRef();
   const password = useRef();
   const navigate = useNavigate();
@@ -30,7 +32,10 @@ export function Login() {
       }
 
       const response = await request.json();
-      console.log(response);
+    
+      setUserInfo(response)
+      localStorage.setItem("userInfo",JSON.stringify(response))
+
       setSuccess("Login successful!");
       setError("");
       setTimeout(() => {
@@ -38,6 +43,7 @@ export function Login() {
         navigate("/home");
       }, 1500);
     } catch (err) {
+      console.log(err)
       setError("Invalid credentials");
       setSuccess("");
       setTimeout(() => setError(""), 2000);
