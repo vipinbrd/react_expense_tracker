@@ -5,6 +5,7 @@ import { AppLayout } from "../AppLayout";
 import { Error } from "../Error";
 import { Profile } from "../Profile";
 import { NavBar } from "../NavBar";
+import { ForgotPassword } from "../ForgotPassword";
 
 export function  MainRouter(){
     const router=createBrowserRouter([{
@@ -38,6 +39,10 @@ export function  MainRouter(){
 {
     path:'home',
     element:<NavBar/>
+},
+{
+    path:'forget',
+    element:<ForgotPassword/>
 }
 ])
     return <RouterProvider router={router}></RouterProvider>
