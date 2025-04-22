@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthStore } from "./store/AuthContext";
 
 export function Profile() {
   const [toast, setToast] = useState("");
@@ -7,11 +8,12 @@ export function Profile() {
   const [image, setImage] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [isChanged,setIsChanged]=useState("")
+  const {userInfo,setUserInfo}=useContext(AuthStore)
 
   const navigate = useNavigate();
 
   async function fetchData() {
-    const req = await fetch("http://localhost:8888/user/252");
+    const req = await fetch(`http://localhost:8888/user/${userInfo.userId}`);
     const response = await req.json();
 
     if (req.ok) {
@@ -25,7 +27,11 @@ export function Profile() {
   }
 
   useEffect(() => {
-    fetchData();
+    if(userInfo.userId!=null){ 
+    fetchData();}
+    else{
+      navigate("/login")
+    }
   }, [isChanged]);
 
   async function onUpdateProfile(event) {
@@ -34,7 +40,7 @@ export function Profile() {
     const formData = new FormData();
     formData.append("file", image);
     formData.append("name", name);
-    formData.append("userId", 252);
+    formData.append("userId",userInfo.userId);
 
     try {
       const request = await fetch("http://localhost:8888/user/update", {
