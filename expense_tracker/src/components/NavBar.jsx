@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { AuthStore } from "./store/AuthContext";
 import { ExpenseForm } from "./ExpenseFrom";
+import {Expenses } from "./Expenses";
 
 export function NavBar() {
   const navigate = useNavigate();
@@ -36,6 +37,7 @@ export function NavBar() {
       </button>
     </div>
     <ExpenseForm/>
+    <Expenses/>
     </>
   );
 }

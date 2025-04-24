@@ -6,8 +6,14 @@ import { Error } from "../Error";
 import { Profile } from "../Profile";
 import { NavBar } from "../NavBar";
 import { ForgotPassword } from "../ForgotPassword";
+import { AuthStore } from "../store/AuthContext";
+import { useContext } from "react";
+import { ProtectedRoute } from "../ProtectedRoute";
 
 export function  MainRouter(){
+     const{userInfo,setUserInfo}=useContext(AuthStore)
+     const loggedIn=Object.keys(userInfo).length>0;
+    
     const router=createBrowserRouter([{
          path:"/",
          element:<SignUp/>,
@@ -38,7 +44,7 @@ export function  MainRouter(){
 },
 {
     path:'home',
-    element:<NavBar/>
+    element:<ProtectedRoute><NavBar/></ProtectedRoute>
 },
 {
     path:'forget',

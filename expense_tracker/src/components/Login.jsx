@@ -37,11 +37,7 @@ export function Login() {
       localStorage.setItem("userInfo",JSON.stringify(response))
 
       setSuccess("Login successful!");
-      setError("");
-      setTimeout(() => {
-        setSuccess("");
-        navigate("/home");
-      }, 1500);
+      navigate("/home");
     } catch (err) {
       console.log(err)
       setError("Invalid credentials");
