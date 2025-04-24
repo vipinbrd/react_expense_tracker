@@ -10,6 +10,7 @@ export function Profile() {
   const [isChanged,setIsChanged]=useState("")
   const {userInfo,setUserInfo}=useContext(AuthStore)
 
+
   const navigate = useNavigate();
 
   async function fetchData() {
@@ -22,6 +23,8 @@ export function Profile() {
       }
       if (response.imageUrl != null) {
         setImageUrl(response.imageUrl);
+        
+        
       }
     }
   }
@@ -153,7 +156,7 @@ export function Profile() {
 
         
         <div className="sticky top-8 text-blue-700 text-sm md:text-base w-1/3 bg-white p-6 rounded-lg shadow-md">
-          <p className="font-medium">Your profile is <span className="font-semibold">64%</span> complete.</p>
+          <p className="font-medium">Your profile is <span className="font-semibold">{imageUrl?"100%":"65%"}</span> complete.</p>
           <p className="mt-4 text-xs text-gray-500">
             Complete profiles have a higher chance of getting selected.
           </p>

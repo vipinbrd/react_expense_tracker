@@ -1,7 +1,7 @@
 import { useContext, useRef, useState } from "react";
 import { AuthStore } from "./store/AuthContext";
 
-export function ExpenseForm() {
+export function ExpenseForm({onChange}) {
   const{userInfo,setUserInfo}=useContext(AuthStore)
   const [toast,setToast]=useState("")
   const userId=userInfo.userId;
@@ -35,6 +35,8 @@ async function addExpenseHandler(e){
  })
  if(req.ok){
   setToast("Expense Sucessfully Added")
+  onChange((pre)=>!pre)
+  setShowForm(false)
   
  }
  else{
