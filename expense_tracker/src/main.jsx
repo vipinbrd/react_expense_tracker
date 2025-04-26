@@ -8,11 +8,14 @@ import {Provider} from "react-redux"
 import { store } from './components/store/ExpenseStore.jsx'
 
 
+
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
   <AuthContext>
   <MainRouter>
+  
     <App/>
+  
    
   </MainRouter>
   </AuthContext>

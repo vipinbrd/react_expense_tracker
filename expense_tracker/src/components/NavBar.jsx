@@ -3,12 +3,15 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { AuthStore } from "./store/AuthContext";
 import { ExpenseForm } from "./ExpenseFrom";
 import {Expenses } from "./Expenses";
+import { useSelector } from "react-redux";
 
 export function NavBar() {
   const navigate = useNavigate();
   const { userInfo, setUserInfo } = useContext(AuthStore);
   const [isDatachanged,setisDataChanged]=useState(false)
   const [percentage,setpercentage]=useState("64%")
+
+  const expenseList=useSelector((state)=>state.expense)
 
   function logoutHandler() {
     localStorage.removeItem("userInfo");
@@ -40,8 +43,14 @@ async function fetchData() {
   },[]);
 
 
+function premiumHandler(){
 
-
+}
+let sum=0;
+expenseList.forEach(element => {
+  sum+=element.price
+});
+console.log(sum)
 
   return (
     <>
@@ -65,6 +74,13 @@ async function fetchData() {
       >
         Logout
       </button>
+      { sum>1000&&
+      <button
+        onClick={premiumHandler}
+        className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition duration-200 shadow-sm"
+      >
+        Activate Premium
+      </button>}
     </div>
     <ExpenseForm onChange={setisDataChanged}/>
     <Expenses isChange={isDatachanged}/>
