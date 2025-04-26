@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthStore } from "./store/AuthContext";
 import { UpdateExpenseForm } from "./UpdateExpenseForm";
+import { action } from "./store/ExpenseStore";
+import { useDispatch, useSelector } from "react-redux";
 
 export function Expenses({isChange}) {
   const [expenses, setExpenses] = useState([]);
@@ -10,6 +12,9 @@ export function Expenses({isChange}) {
   const [toast,setToast]=useState("")
   const [isChanged,setIschanged]=useState(false);
   const [updatedata,setUpdateData]=useState("");
+   const dispatch=useDispatch();
+   const expenseList=useSelector((state)=>state.expense)
+   console.log(expenseList)
   
 
   function fetchData() {
@@ -17,6 +22,8 @@ export function Expenses({isChange}) {
       .then((res) => res.json())
       .then((res) => {
         setExpenses(res);
+        
+        dispatch(action.updateData(res))
         setIsLoading(false);
       })
       .catch((err) => {
@@ -73,7 +80,7 @@ function expenseUpdateHandler(ele){
         <p className="text-center text-gray-600 text-lg">No expenses found.</p>
       ) : (
 <ul className="relative border-l border-gray-300 ml-4">
-  {expenses.map((ele) => (
+  {expenseList.map((ele) => (
     <li key={ele.id} className="mb-10 ml-4">
       <div className="absolute w-3 h-3 bg-blue-500 rounded-full -left-1.5 border border-white"></div>
       <div className="bg-white p-4 rounded-lg shadow-md">
